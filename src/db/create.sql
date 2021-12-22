@@ -1,0 +1,2 @@
+CREATE DATABASE petapi_dev;
+CREATE DATABASE petap_test;

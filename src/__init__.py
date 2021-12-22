@@ -1,5 +1,7 @@
+import os
 from flask import Flask, jsonify
 from flask_restx import Resource, Api
+from flask_sqlalchemy import SQLAlchemy  
 
 
 # instantiate the app
@@ -7,17 +9,11 @@ app = Flask(__name__)
 # instantiate the api
 api = Api(app)
 # set config
-app.config.from_object('src.config.DevelopmentConfig')
+app_settings = os.getenv('APP_SETTINGS')
+app.config.from_object(app_settings)
+
+# instantiate the db
+db = SQLAlchemy(app)
 
 
-# first endpoint 
-class Test(Resource):
-    def get(self):
-        return {
-            'status': 'success',
-            'message': 'It works!'
-        }
-
-# Add resource to the api
-api.add_resource(Test, '/test')
 

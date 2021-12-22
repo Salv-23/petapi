@@ -1,0 +1,14 @@
+import pytest
+from src import app, db
+
+@pytest.fixture(scope='module')
+def test_app():
+    app.config.from_object('src.config.TestingConfig')
+    yield app
+
+@pytest.fixture(scope='module')
+def test_database():
+    db.create_all()
+    yield db
+    db.session.remove()
+    db.drop_all()

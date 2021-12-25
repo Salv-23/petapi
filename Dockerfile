@@ -8,7 +8,6 @@ RUN chmod +x entrypoint.sh
 # Main image
 FROM python:3.9.5-slim-buster
 
-WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONBUFFERED 1
@@ -20,7 +19,17 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --from=content /app ./
-RUN pip install -r requirements.txt
 
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+WORKDIR /usr/src/app
+# NOTE(hector) Comment this out for a moments
+#   since it is faster to run the code from a volume
+#   (specified in compose) than building the image
+#   each time the code is changed.
+#   Once we have a final version we can change this 
+#   behavior and copy the code into the image.
+# COPY --from=content /app ./
+#RUN pip install -r requirements.txt
+# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt

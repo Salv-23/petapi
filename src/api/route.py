@@ -16,4 +16,4 @@ class Route(Resource):
         
 
 # Add resource to the api
-api.add_resource(Route, '/route')
+api.add_resource(Route, '/test')

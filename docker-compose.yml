@@ -22,7 +22,7 @@ services:
   api-db:
     image: postgres:14.1-alpine
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - ./db_init_scripts:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
     environment:

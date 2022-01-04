@@ -20,9 +20,30 @@ def test_database():
 
 @pytest.fixture(scope='function')
 def add_user():
-    def _add_user(name, last_name, email, user_type):
-        user = User(name=name, last_name=last_name, email=email, user_type=user_type)
+    def _add_user(
+        name, last_name, email,
+        user_type, address, city,
+        country, zip_code, number,
+        number_type):
+        user = User(
+            name=name, 
+            last_name=last_name,
+            email=email, 
+            user_type=user_type)
         db.session.add(user)
         db.session.commit()
-        return user
+        user_address = UserAddress(
+            address=address, 
+            city=city, 
+            country=country, 
+            zip_code=zip_code, 
+            user_address=user.id)
+        user_number = PhoneNumbers(
+            number=number, 
+            number_type=number_type, 
+            owner=user.id)
+        db.session.add(user_address)
+        db.session.add(user_number)
+        db.session.commit()
+        return user, user_address, user_number
     return _add_user

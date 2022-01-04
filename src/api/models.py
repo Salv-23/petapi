@@ -52,7 +52,7 @@ class UserAddress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(50), nullable=False)
     city = db.Column(db.String(50), nullable=False)
-    country = db.Column(db.String(30), unique=True, nullable=False)  
+    country = db.Column(db.String(30), nullable=False)  
     zip_code = db.Column(db.String(30), nullable=False)
     user_address = db.Column(db.Integer, db.ForeignKey('user.id'))
 

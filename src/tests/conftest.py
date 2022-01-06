@@ -45,5 +45,22 @@ def add_user():
         db.session.add(user_address)
         db.session.add(user_number)
         db.session.commit()
-        return user, user_address, user_number
+        return user
     return _add_user
+
+
+@pytest.fixture(scope='function')
+def add_card():
+    def _add_card(pet_name, pet_race, pet_gender, birthday, notes, owner):
+        card = Cards(
+            pet_name=pet_name,
+            pet_race=pet_race,
+            pet_gender=pet_gender,
+            birthday=birthday,
+            notes=notes,
+            owner=owner
+        )
+        db.session.add(card)
+        db.session.commit()
+    return _add_card
+    

@@ -29,8 +29,9 @@ def create_app(scritp_info=None):
     app.register_blueprint(route_blueprint)
     from src.api.users import users_blueprint
     app.register_blueprint(users_blueprint)
-    # from src.api.user_address import user_address_blueprint
-    # app.register_blueprint(user_address_blueprint)
+    from src.api.cards import cards_blueprint
+    app.register_blueprint(cards_blueprint)
+
 
     # shell context for flask cli
     @app.shell_context_processor
